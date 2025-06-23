@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal S | Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: #2d89ef;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        header {
+            background: linear-gradient(to right, #0f172a, #1e293b);
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-auto-flow: column;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        #home {
+            text-align: center;
+        }
+
+        #home img {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--primary);
+        }
+
+        #home h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .skills-section h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .skills-grid img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .resume-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .resume-btn:hover {
+            background: #1e40af;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-grid form input,
+        .contact-grid form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-grid form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-grid form button:hover {
+            background: #1e40af;
+        }
+
+        .contact-details p {
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer a {
+            margin: 0 0.5rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Vishal S</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczPv6_ZgJMlnvJBXSI0g8mhBDIiUHIOZattkZLvk3_cMp0gS_eafydE4oD9Dt4mJc4QoR6rzurppTj54KrgbOJUMDbno1mrb5Fim3QCAITHjyvXi8DvILc85thig_3Nmhtxnc_e5yVnXoQXK9SPk7Tff=w958-h914-s-no" alt="Vishal">
+        <h1>Hi, I'm Vishal</h1>
+        <p>Full Stack Developer in the Making 🚀</p>
+    </section>
+
+    <section id="about" class="card">
+        <h2>About Me</h2>
+        <p>I’m Vishal, a dedicated and curious student currently pursuing my Bachelor’s in Computer Applications (BCA). My journey into the tech world began with a fascination for how websites work, which quickly grew into a passion for building them. I’m currently enrolled in a Full Stack Development course where I’m sharpening my skills in HTML, CSS, JavaScript, Java, MySQL, and MongoDB. I’m particularly drawn to creating user-friendly and scalable web applications that solve real-world problems. I enjoy working on collaborative projects, solving coding challenges, and continuously learning new frameworks and technologies to stay ahead in the development landscape.</p>
+    </section>
+
+    <section id="projects" class="card">
+        <h2>Projects</h2>
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <div>
+    <h3>💼 Portfolio Website</h3>
+    <p>This portfolio itself is a demonstration of my frontend skills. Designed and developed using modern HTML, CSS Grid, and custom JavaScript without relying on frameworks. It's fully responsive, fast-loading, and minimalistic — crafted to reflect my style and growth as a developer.</p>
+</div>
+            <div>
+                <h3>🧠 Quiz Web App</h3>
+                <p>Designed for the Qvesys competition using HTML, CSS, and JSON. Focused on user interactivity and fast load time.</p>
+                <a href="home.html" target="_blank">🔗 View Live Project</a>
+            </div>
+            <div>
+                <h3>📝 To-Do Web App</h3>
+                <p>A task management system built using PHP, XAMPP, and MySQL. Features include user authentication, task submissions, soft delete functionality, and a clean dashboard for better usability. Ideal for beginner-level CRUD and JSON-PHP learning.</p>
+                <a href="https://qvesys.in/tdl/" target="_blank">🔗 View Live Project</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="card">
+        <h2>Skills</h2>
+        <div class="skills-section">
+            <h3>Programming Languages</h3>
+            <div class="skills-grid">
+                <div><img src="https://cdn-icons-png.flaticon.com/512/732/732212.png"><p>HTML</p></div>
+                <div><img src="https://cdn-icons-png.flaticon.com/512/732/732190.png"><p>CSS</p></div>
+                <div><img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png"><p>JavaScript</p></div>
+                <div><img src="https://cdn-icons-png.flaticon.com/512/919/919854.png"><p>Java</p></div>
+            </div>
+            <h3>Tools & Databases</h3>
+            <div class="skills-grid">
+                <div><img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png"><p>MySQL</p></div>
+                <div><img src="https://cdn-icons-png.flaticon.com/512/919/919836.png"><p>MongoDB</p></div>
+            </div>
+            <h3>Personal Skills</h3>
+            <ul>
+                <li>✅ Team Collaboration</li>
+                <li>✅ Problem Solving</li>
+                <li>✅ Communication</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card" style="text-align:center">
+        <h2>Want to Know More?</h2>
+        <p>My resume provides a detailed view of my educational background, technical experience, and project involvement.</p>
+        <p>Download it to explore my qualifications, certifications, and hands-on development work!</p>
+        <a class="resume-btn" href="Vishal Resume - Copy.pdf" download>📄 View My Resume (PDF)</a>
+    </section>
+
+    <section id="contact" class="card">
+        <h2>Contact Me</h2>
+        <div class="contact-grid">
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="contact-details">
+                <p><strong>📞 Phone:</strong> +91 9524254949</p>
+                <p><strong>📧 Email:</strong> vishalsivakumar1110@gmail.com</p>
+                <p><strong>🏠 Address:</strong> Veppathur, Kumbakonam - 612105</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Follow me:</p>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="https://github.com/vishalsivakumar-2004"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-hackerrank"></i></a>
+        <a href="https://www.linkedin.com/in/vishal-sivakumar"><i class="fab fa-linkedin"></i></a>
+    </footer>
+</body>
+
+</html>

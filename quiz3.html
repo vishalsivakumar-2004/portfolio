@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Program</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .quiz-container {
+      border: black solid 2px;
+      width: 50%;
+      border-radius: 30px;
+      background-color: chocolate;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .choice {
+      display: flex;
+      flex-direction: column;
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px;
+      background-color: cornsilk;
+      color: black;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .choice:hover {
+      background-color: lightskyblue;
+      border-radius: 60px;
+    }
+
+    #next-btn {
+      margin-top: 1em;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-size: 30px;
+      color: white;
+    }
+
+    .summary {
+      margin-top: 2em;
+    }
+
+    .score-text {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>.NET PROGRAMMING</h1>
+    <h2>QUIZ 1:</h2>
+    <p id="question-text" style="font-size: 25px; color: whitesmoke;"></p>
+    <div class="choices"></div>
+    <button id="next-btn" style="display: none;">Next</button>
+  </div>
+
+  <script>
+    const questions = [
+    { 
+        question: "What does async and await do in .NET?", 
+        choices: ["Enable asynchronous programming", "Pause program execution indefinitely", "Allocate memory dynamically", "Define new threads"], 
+        correct: 0 
+    },
+    { 
+        question: "Which of the following is a .NET 6 feature?", 
+        choices: ["Windows Forms", "Minimal APIs", "Classic ASP", "XML Web Services"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the purpose of middleware in ASP.NET Core?", 
+        choices: ["Process HTTP requests and responses", "Store database connections", "Manage UI components", "Handle garbage collection"], 
+        correct: 0 
+    },
+    { 
+        question: "What is Blazor in .NET?", 
+        choices: ["A framework for building web UIs using C#", "A database management tool", "A cloud computing service", "A JavaScript library"], 
+        correct: 0 
+    },
+    { 
+        question: "What is gRPC in .NET?", 
+        choices: ["A relational database", "A high-performance RPC framework", "A JavaScript framework", "A UI rendering engine"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the function of Kestrel in ASP.NET Core?", 
+        choices: ["A cross-platform web server", "A database engine", "A UI framework", "A code optimizer"], 
+        correct: 0 
+    },
+    { 
+        question: "Which authentication method is widely used in .NET for securing APIs?", 
+        choices: ["Cookie-based authentication", "JWT (JSON Web Token)", "Session-based authentication", "MD5 Hashing"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the main advantage of Entity Framework?", 
+        choices: ["Simplifies database interaction using ORM", "Provides faster execution than SQL queries", "Allows writing queries in JavaScript", "Works only with NoSQL databases"], 
+        correct: 0 
+    },
+    { 
+        question: "What is microservices architecture in .NET?", 
+        choices: ["A way to develop applications as independent services", "A feature for debugging code", "A .NET UI framework", "A version of ASP.NET MVC"], 
+        correct: 0 
+    },
+    { 
+        question: "Which design pattern is used for implementing event-driven programming in .NET?", 
+        choices: ["Singleton", "Factory", "Observer", "Decorator"], 
+        correct: 2 
+    }
+];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    const userSelections = [];
+    let selectedAnswer = null;
+
+    const questionText = document.getElementById("question-text");
+    const choicesContainer = document.querySelector(".choices");
+    const nextBtn = document.getElementById("next-btn");
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      questionText.textContent = `Question ${currentQuestion + 1}: ${q.question}`;
+      choicesContainer.innerHTML = "";
+      selectedAnswer = null;
+      nextBtn.style.display = "none";
+
+      q.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.classList.add("choice");
+        btn.onclick = () => {
+          selectedAnswer = index;
+          Array.from(choicesContainer.children).forEach(b => b.style.backgroundColor = 'cornsilk');
+          btn.style.backgroundColor = 'lightgreen';
+          nextBtn.style.display = "block";
+        };
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    nextBtn.onclick = () => {
+      if (selectedAnswer === null) return;
+
+      const q = questions[currentQuestion];
+      userSelections.push({ question: q.question, selected: selectedAnswer, correct: q.correct });
+      if (selectedAnswer === q.correct) correctAnswers++;
+
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showSummary();
+      }
+    };
+
+    function showSummary() {
+      const container = document.querySelector(".quiz-container");
+      container.innerHTML = `
+        <h2>Quiz Summary</h2>
+        <div class="score-text">Your Score: ${correctAnswers} / ${questions.length}</div>
+        <div class="summary"></div>
+      `;
+      const summary = document.querySelector(".summary");
+
+      userSelections.forEach((sel, i) => {
+        const correct = sel.selected === sel.correct;
+        summary.innerHTML += `
+          <div style="border-left: 10px solid ${correct ? '#2ecc71' : '#e74c3c'}; padding: 1em; background-color: white; color: black; margin-bottom: 1em;">
+            <p><strong>Q${i + 1}:</strong> ${sel.question}</p>
+            <p><strong>Your Answer:</strong> <span style="color: ${correct ? '#2ecc71' : 'red'}">${questions[i].choices[sel.selected]}</span></p>
+            ${!correct ? `<p><strong>Correct Answer:</strong> <span style="color: #2ecc71;">${questions[i].choices[sel.correct]}</span></p>` : ""}
+          </div>
+        `;
+      });
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

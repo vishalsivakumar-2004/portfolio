@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Program</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .quiz-container {
+      border: black solid 2px;
+      width: 50%;
+      border-radius: 30px;
+      background-color: chocolate;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .choice {
+      display: flex;
+      flex-direction: column;
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px;
+      background-color: cornsilk;
+      color: black;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .choice:hover {
+      background-color: lightskyblue;
+      border-radius: 60px;
+    }
+
+    #next-btn {
+      margin-top: 1em;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-size: 30px;
+      color: white;
+    }
+
+    .summary {
+      margin-top: 2em;
+    }
+
+    .score-text {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>.NET PROGRAMMING</h1>
+    <h2>QUIZ 1:</h2>
+    <p id="question-text" style="font-size: 25px; color: whitesmoke;"></p>
+    <div class="choices"></div>
+    <button id="next-btn" style="display: none;">Next</button>
+  </div>
+
+  <script>
+    const questions = [
+    { 
+        question: "What is the main purpose of ILogger in ASP.NET Core?", 
+        choices: ["Connect to a database", "Optimize query performance", "Log application messages and errors", "Create UI components"], 
+        correct: 2 
+    },
+    { 
+        question: "What is Dapper in .NET?", 
+        choices: ["A JavaScript framework", "A lightweight ORM for .NET", "A dependency injection framework", "A cloud storage tool"], 
+        correct: 1 
+    },
+    { 
+        question: "How does gRPC differ from REST APIs?", 
+        choices: ["Uses Protobuf instead of JSON", "Cannot be used in .NET applications", "Works only on Windows", "Uses slower communication protocols"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the benefit of .NET MAUI?", 
+        choices: ["Enables cross-platform mobile and desktop application development", "Optimizes SQL queries", "Improves machine learning algorithms", "Enhances database transactions"], 
+        correct: 0 
+    },
+    { 
+        question: "What does IHostedService do in ASP.NET Core?", 
+        choices: ["Handles background tasks", "Generates UI templates", "Manages SQL transactions", "Encrypts user credentials"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the function of MediatR in .NET applications?", 
+        choices: ["Implements the mediator design pattern for decoupling components", "Manages HTTP requests", "Handles security authentication", "Stores application settings"], 
+        correct: 0 
+    },
+    { 
+        question: "What is Polly in .NET?", 
+        choices: ["A JSON serializer", "A UI framework", "A resilience and transient-fault-handling library", "A message broker"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the role of OData in .NET?", 
+        choices: ["Enables querying REST APIs like databases", "Stores relational database connections", "Handles UI rendering", "Improves web security"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the difference between IQueryable<T> and IEnumerable<T>?", 
+        choices: ["IEnumerable<T> works with databases, IQueryable<T> does not", "IQueryable<T> is slower than IEnumerable<T>", "IQueryable<T> supports deferred execution and LINQ-to-SQL", "IEnumerable<T> does not support iteration"], 
+        correct: 2 
+    },
+    { 
+        question: "What does Host.CreateDefaultBuilder() do in ASP.NET Core?", 
+        choices: ["Creates a new database connection", "Configures default settings for a web application", "Deletes unused dependencies", "Manages API routes"], 
+        correct: 1 
+    }
+];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    const userSelections = [];
+    let selectedAnswer = null;
+
+    const questionText = document.getElementById("question-text");
+    const choicesContainer = document.querySelector(".choices");
+    const nextBtn = document.getElementById("next-btn");
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      questionText.textContent = `Question ${currentQuestion + 1}: ${q.question}`;
+      choicesContainer.innerHTML = "";
+      selectedAnswer = null;
+      nextBtn.style.display = "none";
+
+      q.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.classList.add("choice");
+        btn.onclick = () => {
+          selectedAnswer = index;
+          Array.from(choicesContainer.children).forEach(b => b.style.backgroundColor = 'cornsilk');
+          btn.style.backgroundColor = 'lightgreen';
+          nextBtn.style.display = "block";
+        };
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    nextBtn.onclick = () => {
+      if (selectedAnswer === null) return;
+
+      const q = questions[currentQuestion];
+      userSelections.push({ question: q.question, selected: selectedAnswer, correct: q.correct });
+      if (selectedAnswer === q.correct) correctAnswers++;
+
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showSummary();
+      }
+    };
+
+    function showSummary() {
+      const container = document.querySelector(".quiz-container");
+      container.innerHTML = `
+        <h2>Quiz Summary</h2>
+        <div class="score-text">Your Score: ${correctAnswers} / ${questions.length}</div>
+        <div class="summary"></div>
+      `;
+      const summary = document.querySelector(".summary");
+
+      userSelections.forEach((sel, i) => {
+        const correct = sel.selected === sel.correct;
+        summary.innerHTML += `
+          <div style="border-left: 10px solid ${correct ? '#2ecc71' : '#e74c3c'}; padding: 1em; background-color: white; color: black; margin-bottom: 1em;">
+            <p><strong>Q${i + 1}:</strong> ${sel.question}</p>
+            <p><strong>Your Answer:</strong> <span style="color: ${correct ? '#2ecc71' : 'red'}">${questions[i].choices[sel.selected]}</span></p>
+            ${!correct ? `<p><strong>Correct Answer:</strong> <span style="color: #2ecc71;">${questions[i].choices[sel.correct]}</span></p>` : ""}
+          </div>
+        `;
+      });
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
